@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> Lista de canciones </title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	<div id="app" class="container">
+		<h1> Lista de canciones </h1>
+		<table id="tabla" class="table">
+		  <thead class="thead-dark">
+		    <tr>
+		      <th scope="col"> Juego </th>
+		      <th scope="col"> Género </th>
+		      <th scope="col"> Valoración </th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		    	
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		jQuery.ajax({
+			url: "https://spreadsheets.google.com/feeds/list/1oPY11-w0o6ac_kXlqyhbJ8onYxIlZ-zA0NqBziTl3KQ/od6/public/values?alt=json"
+		}).done(function(response) {
+			for(let i = 0; i < response.feed.entry.length; i++){
+				let juego = response.feed.entry[i].gsx$juego.$t;
+				let genero = response.feed.entry[i].gsx$genero.$t;
+				let valoracion = response.feed.entry[i].gsx$valoracion.$t;
+				let tr = '<tr>';
+				tr += '<td>' + juego + '</td>';
+				tr += '<td>' + genero + ' </td>';
+				tr += '<td>' + valoracion + '</td>';
+				tr += '</tr>';
+				$("#tabla tbody").append(tr);
+			}
+		});
+	</script>
+</body>
+</html>
